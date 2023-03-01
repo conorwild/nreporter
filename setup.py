@@ -8,6 +8,6 @@ setup(
     description="A utility for tracking sample sizes during chained Pandas operations",
     packages=find_packages(),
     install_requires=[
-        'pandas', 'ipython', 'Jinja2'
+        'pandas', 'ipython', 'Jinja2', 'numpy'
     ],
 )

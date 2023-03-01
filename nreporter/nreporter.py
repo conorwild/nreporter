@@ -2,6 +2,7 @@ import pandas as pd
 import collections
 import six
 from IPython.display import display
+import numpy as np
 
 def iterable(arg):
     """ Checks if an item is iterable, and not a string.
@@ -153,6 +154,36 @@ class NReporter():
 
         self._current_i += 1
         return df
+
+    def apply_query(self, df, query_str):
+        return (
+            df
+            .query(query_str)
+            .pipe(self.update, query_str)
+        )
+
+    def apply_mask(self, df, expr, mask_columns='all'):
+
+        _mask_columns = mask_columns
+        valid_columms = list(df.columns) + ['*', 'all']
+    
+        if mask_columns in ['*', 'all']:
+            mask_columns = list(df.columns)
+
+        if not iterable(mask_columns):
+            mask_columns = [mask_columns]
+
+        for c in mask_columns:
+            check_arg_value('mask_columns', c, valid_columms)
+
+        valid_rows = df.query(expr).index
+        invalid_rows = df.index.difference(valid_rows)
+
+        df.loc[invalid_rows, mask_columns] = np.nan
+        self.update(df, f"{expr} (applied to {_mask_columns})")
+        
+        return df
+        
 
     def __deepcopy__(self):
         return deepcopy(self)
