@@ -1,0 +1,8 @@
+[flake8]
+disable-noqa = False
+max-line-length = 140
+extend-ignore = E203, F401
+exclude =
+    .git,
+    __pycache__,
+    .eggs

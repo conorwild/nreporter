@@ -7,7 +7,5 @@ setup(
     author_email="conorwild@gmail.com",
     description="A utility for tracking sample sizes during chained Pandas operations",
     packages=find_packages(),
-    install_requires=[
-        'pandas', 'ipython', 'Jinja2', 'numpy'
-    ],
+    install_requires=["pandas", "ipython", "Jinja2", "numpy"],
 )
